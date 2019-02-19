@@ -7,15 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.gloria.udacitybaking.Data.Step;
+import com.example.gloria.udacitybaking.data.Step;
 import com.example.gloria.udacitybaking.R;
 import com.example.gloria.udacitybaking.ui.fragments.RecipeStepsFragment;
 
 import java.util.List;
 
 public class StepsPagerAdapter extends FragmentPagerAdapter {
-    private Context mContext;
-    private List<Step> mSteps;
+    private final Context mContext;
+    private final List<Step> mSteps;
 
     public StepsPagerAdapter(Context context, List<Step> steps, FragmentManager fm) {
         super(fm);

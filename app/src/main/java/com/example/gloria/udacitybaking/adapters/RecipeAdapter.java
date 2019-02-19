@@ -1,13 +1,12 @@
 package com.example.gloria.udacitybaking.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.R;
 import com.example.gloria.udacitybaking.holders.RecipeViewHolder;
 import com.example.gloria.udacitybaking.ui.activities.RecipeListActivity;
@@ -22,13 +21,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
 
     private RecipeListActivity mParentActivity;
     private boolean mTwoPane;
-    Context mContext;
-   private List<Recipe> recipes;
-    private Listeners.OnItemClickListener onItemClickListener;
+    private final List<Recipe> recipes;
+    private final Listeners.OnItemClickListener onItemClickListener;
 
-    public RecipeAdapter(Context context,List<Recipe> recipes, Listeners.OnItemClickListener itemClickListener) {
-      this.mContext = context;
-       this.recipes = recipes;
+    public RecipeAdapter(List<Recipe> recipes, Listeners.OnItemClickListener itemClickListener) {
+        this.recipes = recipes;
         this.onItemClickListener = itemClickListener;
     }
 

@@ -1,28 +1,23 @@
 package com.example.gloria.udacitybaking.ui.fragments;
 
-import android.annotation.SuppressLint;
-import android.content.res.Configuration;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.gloria.udacitybaking.Data.Step;
+import com.example.gloria.udacitybaking.data.Step;
 import com.example.gloria.udacitybaking.R;
+
 import com.example.gloria.udacitybaking.module.GlideApp;
-import com.example.gloria.udacitybaking.module.GlideAppModule;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -37,15 +32,14 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class RecipeStepsFragment extends Fragment {
-    public static final String STEP_KEY = "steps" ;
-    public static final String STEP_POSITION_KEY ="position";
-    public static final String PLAY = "play";
+    public static final String STEP_KEY = "steps";
+    private static final String STEP_POSITION_KEY = "position";
+    private static final String PLAY = "play";
 
     @BindView(R.id.exoplayer)
     SimpleExoPlayerView exoPlayerView;
@@ -60,8 +54,6 @@ public class RecipeStepsFragment extends Fragment {
     TextView instructions;
 
 
-
-
     private SimpleExoPlayer exoPlayer;
     private Step step;
     private Unbinder unbinder;
@@ -69,16 +61,17 @@ public class RecipeStepsFragment extends Fragment {
     private long currentPosition = 0;
     private boolean play = true;
 
-    public RecipeStepsFragment(){}
+    public RecipeStepsFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getArguments() != null && getArguments().containsKey(STEP_KEY)){
+        if (getArguments() != null && getArguments().containsKey(STEP_KEY)) {
             step = getArguments().getParcelable(STEP_KEY);
-        }else{
-            //Snackbar.make(stepsFragment, "arguments is null", Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(instructionsContainer, R.string.error_recipes_list, Snackbar.LENGTH_LONG).show();
         }
 
     }
@@ -88,17 +81,16 @@ public class RecipeStepsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_steps, container, false);
-        if(savedInstanceState != null && savedInstanceState.containsKey(STEP_POSITION_KEY)){
+        if (savedInstanceState != null && savedInstanceState.containsKey(STEP_POSITION_KEY)) {
             currentPosition = savedInstanceState.getLong(STEP_POSITION_KEY);
             play = savedInstanceState.getBoolean(PLAY);
         }
-        unbinder = ButterKnife.bind(this, view );
+        unbinder = ButterKnife.bind(this, view);
         instructions.setText(step.getDescription());
 
 
 
-        if(!step.getThumbnailURL().isEmpty())
-        {
+        if (!step.getThumbnailURL().isEmpty()) {
             GlideApp.with(this)
                     .load(step.getThumbnailURL())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -108,6 +100,7 @@ public class RecipeStepsFragment extends Fragment {
         }
         return view;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -155,7 +148,6 @@ public class RecipeStepsFragment extends Fragment {
             DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), getString(R.string.app_name)), bandwidthMeter);
 
             MediaSource source = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
-
 
 
             exoPlayer.prepare(source);

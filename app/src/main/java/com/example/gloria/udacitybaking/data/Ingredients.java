@@ -1,4 +1,4 @@
-package com.example.gloria.udacitybaking.Data;
+package com.example.gloria.udacitybaking.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Ingredients implements Parcelable {
     @JsonProperty("quantity")
-    private int quantity;
+    private final int quantity;
     @JsonProperty("measure")
-    private String measure;
+    private final String measure;
     @JsonProperty("ingredient")
-    private String ingredient;
+    private final String ingredient;
 
     public Ingredients() {
         this.quantity = 0;
@@ -31,7 +31,7 @@ public class Ingredients implements Parcelable {
         dest.writeString(this.ingredient);
     }
 
-    protected Ingredients(Parcel in) {
+    Ingredients(Parcel in) {
         this.quantity = in.readInt();
         this.measure = in.readString();
         this.ingredient = in.readString();
@@ -62,12 +62,4 @@ public class Ingredients implements Parcelable {
         return ingredient;
     }
 
-    @Override
-    public String toString() {
-        return "Ingredients{" +
-                "quantity=" + quantity +
-                ", measure='" + measure + '\'' +
-                ", ingredient='" + ingredient + '\'' +
-                '}';
-    }
 }

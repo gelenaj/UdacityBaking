@@ -39,7 +39,6 @@
                 android:src="@drawable/ic_launcher_background"
                 android:visibility="gone"
                 app:layout_constraintDimensionRatio="w,1:1"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />

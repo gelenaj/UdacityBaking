@@ -9,11 +9,9 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.MyApplication;
 import com.example.gloria.udacitybaking.Prefs;
 import com.example.gloria.udacitybaking.R;
@@ -53,7 +51,7 @@ public class RecipesFragment extends Fragment {
     @BindView(R.id.recipes_fragment)
     RelativeLayout recipesFragment;
 
-    public static String RECIPE_KEY = "recipes";
+    private static final String RECIPE_KEY = "recipes";
 
     private OnRecipeClickListener mListener;
 
@@ -71,20 +69,14 @@ public class RecipesFragment extends Fragment {
         }
     };
 
-    public RecipesFragment() { }
-
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public RecipesFragment() {
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
-        unbinder = ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this, view);
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -92,7 +84,6 @@ public class RecipesFragment extends Fragment {
                 getRecipes();
             }
         });
-
 
 
         mEmptyContainer.setVisibility(View.VISIBLE);
@@ -104,7 +95,7 @@ public class RecipesFragment extends Fragment {
         if (savedInstanceState != null && savedInstanceState.containsKey(RECIPE_KEY)) {
             mRecipes = savedInstanceState.getParcelableArrayList(RECIPE_KEY);
 
-            mRecylerView.setAdapter(new RecipeAdapter(getActivity().getApplicationContext(),
+            mRecylerView.setAdapter(new RecipeAdapter(
                     mRecipes, new Listeners.OnItemClickListener() {
 
                 @Override
@@ -121,17 +112,17 @@ public class RecipesFragment extends Fragment {
     }
 
     private void getRecipes() {
-        if(NetworkUtil.isConnected(getActivity().getApplicationContext())){
+        if (NetworkUtil.isConnected(getActivity().getApplicationContext())) {
 
-           refreshLayout.setRefreshing(true);
+            refreshLayout.setRefreshing(true);
 
             RecipesClient.getInstance().getRecipes(new RecipesCallback<List<Recipe>>() {
                 @Override
                 public void onResponse(final List<Recipe> result) {
-                    if(result != null){
+                    if (result != null) {
 
                         mRecipes = result;
-                        mRecylerView.setAdapter(new RecipeAdapter(getActivity().getApplicationContext(),
+                        mRecylerView.setAdapter(new RecipeAdapter(
                                 mRecipes, new Listeners.OnItemClickListener() {
                             @Override
                             public void onItemClickListener(int pos) {
@@ -142,7 +133,7 @@ public class RecipesFragment extends Fragment {
                             AppWidgetService.updateWidget(getActivity(), mRecipes.get(0));
                         }
 
-                    }else{
+                    } else {
 
                     }
                     recipesLayout();
@@ -159,36 +150,30 @@ public class RecipesFragment extends Fragment {
 
     private void recipesLayout() {
 
-        boolean isLoaded = mRecipes !=null && mRecipes.size() > 0;
+        boolean isLoaded = mRecipes != null && mRecipes.size() > 0;
         refreshLayout.setRefreshing(false);
 
-        mRecylerView.setVisibility(isLoaded? View.VISIBLE : View.GONE);
-        mEmptyContainer.setVisibility(isLoaded? View.GONE: View.VISIBLE);
+        mRecylerView.setVisibility(isLoaded ? View.VISIBLE : View.GONE);
+        mEmptyContainer.setVisibility(isLoaded ? View.GONE : View.VISIBLE);
 
-      myApplication.setIdleState(true);
+        myApplication.setIdleState(true);
     }
 
     private void setUpRecyclerView() {
         mRecylerView.setVisibility(View.GONE);
         mRecylerView.setHasFixedSize(true);
+        mRecylerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
-        boolean twoPane= false;
-        if(twoPane){
-            mRecylerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
-        }else{
-            mRecylerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        }
-
-   mRecylerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
+        mRecylerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof OnRecipeClickListener){
+        if (context instanceof OnRecipeClickListener) {
             mListener = (OnRecipeClickListener) context;
-        }else{
-            //error
+        } else {
+            Snackbar.make(mEmptyContainer,"Error with click listener", Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -196,13 +181,13 @@ public class RecipesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
 
-        mListener=null;
+        mListener = null;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-         unbinder.unbind();
+        unbinder.unbind();
     }
 
     @Override
@@ -219,16 +204,16 @@ public class RecipesFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull  Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if(mRecipes != null && !mRecipes.isEmpty()){
-            outState.putParcelableArrayList(RECIPE_KEY, (ArrayList<? extends Parcelable>)mRecipes);
+        if (mRecipes != null && !mRecipes.isEmpty()) {
+            outState.putParcelableArrayList(RECIPE_KEY, (ArrayList<? extends Parcelable>) mRecipes);
         }
 
     }
 
-    public interface OnRecipeClickListener{
+    public interface OnRecipeClickListener {
         void onRecipeSelected(Recipe recipe);
     }
 

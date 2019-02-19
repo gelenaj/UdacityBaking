@@ -4,12 +4,12 @@ import android.content.Context;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.Prefs;
 import com.example.gloria.udacitybaking.R;
 
-public class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
-    private Context mContext;
+class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+    private final Context mContext;
     private Recipe recipe;
 
     public ListRemoteViewsFactory(Context context) {
@@ -18,7 +18,6 @@ public class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public void onCreate() {
-
     }
 
     @Override
@@ -27,7 +26,8 @@ public class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     @Override
-    public void onDestroy() { }
+    public void onDestroy() {
+    }
 
     @Override
     public int getCount() {
@@ -37,9 +37,7 @@ public class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews row = new RemoteViews(mContext.getPackageName(), R.layout.udacity_baking_widget_list_item);
-
-        row.setTextViewText(R.id.ingredient_name_text, recipe.getIngredients().get(position).getIngredient());
-
+        row.setTextViewText(R.id.ingredient_item_text, recipe.getIngredients().get(position).getIngredient());
         return row;
     }
 

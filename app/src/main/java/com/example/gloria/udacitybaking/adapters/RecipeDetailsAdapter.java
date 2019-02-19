@@ -6,20 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gloria.udacitybaking.Data.Ingredients;
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Ingredients;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.R;
 import com.example.gloria.udacitybaking.holders.IngredientsViewHolder;
 import com.example.gloria.udacitybaking.holders.StepsViewHolder;
-import com.example.gloria.udacitybaking.ui.activities.RecipeDetailActivity;
 import com.example.gloria.udacitybaking.utils.Listeners;
 
 import java.util.Locale;
 
 public class RecipeDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private Recipe recipe;
-    private Listeners.OnItemClickListener mOnItemClickListener;
+    private final Recipe recipe;
+    private final Listeners.OnItemClickListener mOnItemClickListener;
 
     public RecipeDetailsAdapter(Recipe recipe, Listeners.OnItemClickListener onItemClickListener) {
         this.recipe = recipe;
@@ -28,8 +27,9 @@ public class RecipeDetailsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0) {
             return new IngredientsViewHolder(LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.ingredient_list_content, parent, false));
@@ -41,7 +41,7 @@ public class RecipeDetailsAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof IngredientsViewHolder) {
             IngredientsViewHolder viewHolder = (IngredientsViewHolder) holder;
 

@@ -1,4 +1,4 @@
-package com.example.gloria.udacitybaking.Data;
+package com.example.gloria.udacitybaking.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -30,12 +30,12 @@ public class Recipe implements Parcelable {
     private int servings;
 
     @JsonProperty("ingredients")
-    private List<Ingredients> ingredients = null;
+    private List<Ingredients> ingredients;
 
     @JsonProperty("steps")
     private List<Step> steps;
 
-    public Recipe() {
+    private Recipe() {
         this.image = "";
         this.servings = 0;
         this.name = "";
@@ -44,7 +44,7 @@ public class Recipe implements Parcelable {
         this.steps = new ArrayList<>();
     }
 
-    protected Recipe(Parcel in) {
+    private Recipe(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.ingredients = new ArrayList<>();

@@ -1,6 +1,5 @@
 package com.example.gloria.udacitybaking.holders;
 
-
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;

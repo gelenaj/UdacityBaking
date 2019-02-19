@@ -4,14 +4,13 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.support.design.widget.TabLayout;
 
-
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.R;
 import com.example.gloria.udacitybaking.adapters.StepsPagerAdapter;
 
@@ -35,7 +34,6 @@ public class StepsDetailActivity extends AppCompatActivity {
     @BindBool(R.bool.twoPane)
     boolean isTwoPane;
 
-
     private Recipe recipe;
     private int mStepPosition;
 
@@ -48,11 +46,11 @@ public class StepsDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle!=null && bundle.containsKey(RECIPE_KEY) && bundle.containsKey(STEP_CLICKED_KEY)){
+        if (bundle != null && bundle.containsKey(RECIPE_KEY) && bundle.containsKey(STEP_CLICKED_KEY)) {
             recipe = bundle.getParcelable(RECIPE_KEY);
-            mStepPosition=bundle.getInt(STEP_CLICKED_KEY);
+            mStepPosition = bundle.getInt(STEP_CLICKED_KEY);
 
-        }else{
+        } else {
             Snackbar.make(parentLayout, "Error loading recipes", Snackbar.LENGTH_LONG).show();
             finish();
         }
@@ -62,7 +60,6 @@ public class StepsDetailActivity extends AppCompatActivity {
             actionBar.setTitle(recipe.getName());
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
 
 
         StepsPagerAdapter adapter = new StepsPagerAdapter(getApplicationContext(), recipe.getSteps(), getSupportFragmentManager());
@@ -76,7 +73,8 @@ public class StepsDetailActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
@@ -86,7 +84,8 @@ public class StepsDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) { }
+            public void onPageScrollStateChanged(int state) {
+            }
         });
         mViewPager.setCurrentItem(mStepPosition);
     }

@@ -10,13 +10,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepsViewHolder extends RecyclerView.ViewHolder {
-  @BindView(R.id.step)
-  public TextView step;
+    @BindView(R.id.step)
+    public TextView step;
 
     @BindView(R.id.step_order)
     public TextView stepOrder;
-
-
 
 
     public StepsViewHolder(View view) {

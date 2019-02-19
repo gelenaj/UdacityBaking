@@ -1,4 +1,4 @@
-package com.example.gloria.udacitybaking.Data;
+package com.example.gloria.udacitybaking.data;
 
 
 import android.os.Parcel;
@@ -86,7 +86,7 @@ public class Step implements Parcelable {
     }
 
 
-    protected Step(Parcel in) {
+    Step(Parcel in) {
         this.id = in.readInt();
         this.shortDescription = in.readString();
         this.description = in.readString();

@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViewsService;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.Prefs;
 
-public class AppWidgetService  extends RemoteViewsService {
+public class AppWidgetService extends RemoteViewsService {
     public static void updateWidget(Context context, Recipe recipe) {
         Prefs.saveRecipe(context, recipe);
 

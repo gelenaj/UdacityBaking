@@ -2,16 +2,14 @@ package com.example.gloria.udacitybaking.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
-
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.R;
 import com.example.gloria.udacitybaking.ui.fragments.RecipesFragment;
 
 
-public class RecipeListActivity extends AppCompatActivity implements RecipesFragment.OnRecipeClickListener{
+public class RecipeListActivity extends AppCompatActivity implements RecipesFragment.OnRecipeClickListener {
 
 
     @Override

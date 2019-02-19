@@ -1,6 +1,6 @@
 package com.example.gloria.udacitybaking.api;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,7 +21,7 @@ public class RecipesClient implements Serializable {
     private RecipeApi recipesApi;
 
 
-    public RecipesClient(){
+    private RecipesClient(){
 
         if(recipesClient !=null){
             throw new RuntimeException("getInstance() required");

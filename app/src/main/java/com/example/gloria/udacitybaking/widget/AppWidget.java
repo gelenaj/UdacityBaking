@@ -7,15 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 import com.example.gloria.udacitybaking.Prefs;
 import com.example.gloria.udacitybaking.R;
 import com.example.gloria.udacitybaking.ui.activities.RecipeListActivity;
 
 public class AppWidget extends AppWidgetProvider {
 
-    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                       int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
         Recipe recipe = Prefs.getRecipe(context);
         if (null != recipe) {
@@ -54,11 +54,9 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-
     }
 
     @Override
     public void onDisabled(Context context) {
-
     }
 }

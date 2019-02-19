@@ -1,6 +1,6 @@
 package com.example.gloria.udacitybaking.api;
 
-import com.example.gloria.udacitybaking.Data.Recipe;
+import com.example.gloria.udacitybaking.data.Recipe;
 
 import java.util.List;
 
